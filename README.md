@@ -10,10 +10,14 @@ sau MCTS-ul arbitrului pentru a obține rezultate mai bune în teste.
 - [Codul complet, ONNX și rezultatele într-un ZIP](downloads/colony-one-model11-optimized.zip?raw=true)
 - [Strategia și raportul de evaluare](REPORT.md)
 
-Testul final Level 4: **60/100 victorii contra model11 original**, cu culorile
-alternate și 100 de simulări MCTS per acțiune. Magenta: 31/50; Cyan: 29/50.
-Validator oficial: **ACCEPTED**. Sunt rezultate locale; nu garantează un winrate
-identic în turneul live. Hash-urile de verificare sunt în `SHA256SUMS.txt`.
+**Export actual:** priorități noi pentru protejarea Kernelului, eliberarea
+culoarelor blocate de aliați, amenințări în două acțiuni și evacuarea tuturor
+pieselor înainte de firewall. La cererea utilizatorului, ultimul export a fost
+construit fără teste sau meciuri noi. Hash-urile sunt în `SHA256SUMS.txt`.
+
+Rezultatul **60/100** și verdictul **ACCEPTED** aparțin versiunii precedente,
+păstrate în `baselines/model11_strategy_v1.onnx`; nu sunt rezultate pentru noul
+export. Detaliile și analiza jurnalului nou sunt în [REPORT.md](REPORT.md).
 
 ## Instalare
 

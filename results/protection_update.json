@@ -1,0 +1,48 @@
+{
+  "model_sha256": "731a8b0ddbd5401f288a0833037128b1678efe92c8f5f03968eae85a116dd8bd",
+  "model_bytes": 944687,
+  "configuration": {
+    "capture_scale": 1.0,
+    "central_scale": 1.0,
+    "material_scale": 1.0,
+    "unsafe": 0.5,
+    "guard_bonus": 0.06,
+    "burn": 0.65,
+    "attack": 0.35,
+    "exact": true,
+    "risk": 0.0,
+    "policy_risk": 0.0,
+    "kernel_policy_risk": 0.0,
+    "tempo": 0.0,
+    "pressure": 0.0,
+    "force_win": true,
+    "force_policy": 4.0,
+    "piece_scales": [
+      1.0,
+      1.0,
+      1.0,
+      2.0,
+      1.0,
+      1.0
+    ],
+    "guard_policy": true,
+    "followup": 0.7,
+    "followup_last": 0.15,
+    "side_strategy": 0.75,
+    "cyan_policy_scale": 0.6,
+    "border_safety": 1.0,
+    "kernel_routes": 1.0,
+    "protection_priority": 0.8,
+    "evacuate_all": 1.0
+  },
+  "verification": "Not tested or validated after final protection changes, per user request. Export includes ONNX structural checking.",
+  "new_match_log": "results/new_tournament_matches.json",
+  "analysis_only": {
+    "records": 30,
+    "complete_protocols": 23,
+    "wins": 8,
+    "losses": 15,
+    "missing_protocols": 7
+  },
+  "previous_version": "baselines/model11_strategy_v1.onnx"
+}

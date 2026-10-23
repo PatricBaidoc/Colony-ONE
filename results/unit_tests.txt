@@ -1,12 +1,2 @@
-[0;93m2026-10-23 16:02:21.556878756 [W:onnxruntime:Default, telemetry_1ds.cc:600 operator()] Failed to persist telemetry device ID; using an in-memory identifier[m
-test_capture_geometry_matches_engine (test_model.ModelTest.test_capture_geometry_matches_engine) ... ok
-test_dynamic_batches_and_extremes (test_model.ModelTest.test_dynamic_batches_and_extremes) ... ok
-test_firewall_evacuation_and_magenta_caution (test_model.ModelTest.test_firewall_evacuation_and_magenta_caution) ... ok
-test_followup_prior_respects_remaining_actions (test_model.ModelTest.test_followup_prior_respects_remaining_actions) ... ok
-test_glicko_published_example (test_model.ModelTest.test_glicko_published_example) ... ok
-test_two_action_guard_win (test_model.ModelTest.test_two_action_guard_win) ... ok
-
-----------------------------------------------------------------------
-Ran 6 tests in 1.548s
-
-OK
+Current export: not run after final protection changes, per user request.
+Historical output is preserved under results/reports/.

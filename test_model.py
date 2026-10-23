@@ -12,8 +12,10 @@ from onnx import TensorProto
 from onnx import helper as H
 
 from build_model import build
-from colony_one import constants, encoding
+from colony_one import constants, encoding, mcts
+from colony_one.board import Board
 from colony_one.env import ColonyOneEnv
+from colony_one.onnx_runner import OnnxEvaluator
 from colony_one.rules import legal_actions_for_team
 from metrics import glicko2
 
@@ -108,6 +110,81 @@ class ModelTest(unittest.TestCase):
         self.assertAlmostEqual(result["rating"], 1464.06, delta=0.02)
         self.assertAlmostEqual(result["rd"], 151.52, places=2)
         self.assertAlmostEqual(result["volatility"], 0.059996, places=5)
+
+    def test_kernel_ice_blocker_cleared_before_firewall(self):
+        """Only clearing Ice first permits a King escape in the current turn."""
+        evaluator = OnnxEvaluator(ROOT / "model11_optimized.onnx")
+        for locked_rings, round_number in [(0, 8), (1, 16)]:
+            with self.subTest(locked_rings=locked_rings):
+                scene = np.zeros((16, 8, 8), np.float32)
+                low, high = locked_rings, 7 - locked_rings
+                scene[5, high, low] = 1
+                scene[4, high - 1, low + 1] = 1  # Ice blocks the only inner door.
+                scene[0, high, low + 1] = 1
+                scene[3, high - 1, low] = 1
+                # Opponent already occupies the safe interior; waiting for
+                # both Kernels to burn cannot give Magenta a tiebreak win.
+                scene[11, 2, 5] = 1
+                scene[6, 2, 4] = 1
+                for row in range(8):
+                    for col in range(8):
+                        scene[12, row, col] = (
+                            min(row, col, 7 - row, 7 - col) < locked_rings
+                        )
+                scene[13] = 1
+                scene[14] = 1
+                scene[15] = 1
+                env = ColonyOneEnv(scene=scene)
+                env.board = Board.from_observation(scene, team=constants.MAGENTA)
+                env.current_team = constants.MAGENTA
+                env.round_number = round_number
+                config = mcts.MCTSConfig(simulations=100)
+                rng = np.random.default_rng(121 + locked_rings)
+                self.assertFalse(
+                    any(
+                        env.board.piece_at(*a.from_pos).piece_type.value == "KERNEL"
+                        for a in env.legal_actions()
+                    )
+                )
+                first = mcts.search_action(
+                    env.board,
+                    env.current_team,
+                    env.actions_left,
+                    env.round_number,
+                    evaluator,
+                    config,
+                    rng=rng,
+                )
+                self.assertEqual(
+                    env.board.piece_at(*first.from_pos).piece_type.value, "ICE"
+                )
+                env.step(first)
+                second = mcts.search_action(
+                    env.board,
+                    env.current_team,
+                    env.actions_left,
+                    env.round_number,
+                    evaluator,
+                    config,
+                    rng=rng,
+                )
+                self.assertEqual(
+                    env.board.piece_at(*second.from_pos).piece_type.value, "KERNEL"
+                )
+                env.step(second)
+                self.assertFalse(env.terminated)
+                own_kernel = [
+                    (r, c)
+                    for r in range(8)
+                    for c in range(8)
+                    if (p := env.board.piece_at(r, c)) is not None
+                    and p.team == constants.MAGENTA
+                    and p.piece_type.value == "KERNEL"
+                ]
+                self.assertEqual(len(own_kernel), 1)
+                row, col = own_kernel[0]
+                self.assertGreaterEqual(min(row, col, 7 - row, 7 - col), locked_rings + 1)
+                self.assertTrue(env.legal_actions())
 
     def test_two_action_guard_win(self):
         path = ROOT / "candidates/test_force.onnx"

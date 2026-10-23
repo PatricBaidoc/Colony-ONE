@@ -1,24 +1,5 @@
 {
-  "selected_candidate": "passive_varied",
-  "selection_reason": "Tied at 12/20 with passive_full; choose varied Cyan per user request, before final outcomes.",
-  "model_sha256": "6b71744f625f9b3adc36eab46333fb97c42ee9cb4965afbbd08faa6dc11fdaaa",
-  "primary": {
-    "opponent": "baselines/model11.onnx",
-    "pairs": 50,
-    "seed": 170000,
-    "simulations": 100
-  },
-  "secondary": [
-    {
-      "opponent": "baselines/v2.onnx",
-      "pairs": 10,
-      "seed": 180000
-    },
-    {
-      "opponent": "baselines/model_claude2.onnx",
-      "pairs": 10,
-      "seed": 190000
-    }
-  ],
-  "rule": "Final model frozen before tests; no parameter updates from these outcomes."
+  "model_sha256": "731a8b0ddbd5401f288a0833037128b1678efe92c8f5f03968eae85a116dd8bd",
+  "status": "cancelled_by_user",
+  "tests_run_for_this_export": false
 }

@@ -39,6 +39,9 @@ DEFAULTS = {
     "side_strategy": 0.0,
     "cyan_policy_scale": 1.0,
     "border_safety": 0.0,
+    "kernel_routes": 0.0,
+    "protection_priority": 0.0,
+    "evacuate_all": 0.0,
 }
 
 
@@ -119,6 +122,193 @@ def geometry():
                     )
                     use[k, f, t] = 1
     return masks, mid, use, shoot
+
+
+def kernel_route_terms(g, p, ownocc, enemyocc, attacks, relocate, adjacency, strength):
+    """Prefer early King evacuation and let allies clear its inner escape doors."""
+    adj = g.const(adjacency)
+    ring = g.reshape("burning_ring", [0, 1, 64])
+    inner = g.clip(g.op("Sub", g.const(1.0), g.add(p[12], ring)))
+    urgency = g.clip(g.scale(g.op("Sub", p[14], g.const(0.25)), 2.0))
+    policies, values = [], []
+    room = []
+    demands = []
+    for king, friendly, hostile_attacks, redirect in [
+        (p[5], ownocc, attacks[1], "enemy_guarded_marker"),
+        (p[11], enemyocc, attacks[0], "own_guarded_marker"),
+    ]:
+        allowed = g.op("Mul", g.op("Sub", g.const(1.0), friendly), inner)
+        allowed = g.op(
+            "Mul", allowed, g.op("Sub", g.const(1.0), g.reshape(redirect, [0, 1, 64]))
+        )
+        safe = g.op("Mul", allowed, g.op("Sub", g.const(1.0), g.clip(hostile_attacks)))
+        neighbors = g.op("MatMul", safe, adj)
+        count = g.reduce(g.op("Mul", king, neighbors), [1, 2])
+        room.append(g.reshape(count, [0, 1]))
+        on_ring = g.reduce(g.op("Mul", king, ring), [1, 2])
+        demand = g.op(
+            "Mul", g.reshape(on_ring, [0, 1, 1]), g.reshape(urgency, [0, 1, 64])
+        )
+        demands.append(demand)
+    current_demand = demands[0]
+    king_neighbors = g.op("MatMul", p[5], adj)
+    doors = g.op("Mul", king_neighbors, inner)
+    blocker = g.op("Mul", g.op("Sub", ownocc, p[5]), doors)
+    clear_door = g.op(
+        "Mul", g.reshape(blocker, [0, 64, 1]), g.op("Sub", g.const(1.0), doors)
+    )
+    priority = g.add(g.const(0.35), g.scale(current_demand, 3.0))
+    policies.append(
+        g.scale(g.op("Mul", g.op("Mul", clear_door, relocate), priority), strength)
+    )
+    # Do not park Ice (or another ally) on a scarce inner escape door.
+    scarce = g.op(
+        "Cast",
+        g.op("Less", g.reshape(room[0], [0, 1, 1]), g.const(2.0)),
+        to=onnx.TensorProto.FLOAT,
+    )
+    block_door = g.op("Mul", g.reshape(g.op("Sub", ownocc, p[5]), [0, 64, 1]), doors)
+    block_penalty = g.op(
+        "Mul", g.op("Mul", block_door, relocate), g.op("Mul", priority, scarce)
+    )
+    policies.append(g.scale(block_penalty, -strength))
+    # Reward King moves with onward room and early progress into the next
+    # safe ring. Attacked destinations are penalized rather than forbidden.
+    open_square = g.op(
+        "Mul", g.op("Sub", g.const(1.0), ownocc), g.op("Sub", g.const(1.0), p[12])
+    )
+    open_square = g.op(
+        "Mul",
+        open_square,
+        g.op("Sub", g.const(1.0), g.reshape("enemy_guarded_marker", [0, 1, 64])),
+    )
+    safe_square = g.op("Mul", open_square, g.op("Sub", g.const(1.0), g.clip(attacks[1])))
+    onward = g.op("MatMul", safe_square, adj)
+    king_source = g.reshape(p[5], [0, 64, 1])
+    onward_delta = g.op("Sub", onward, g.reshape(onward, [0, 64, 1]))
+    king_move = g.op("Mul", king_source, relocate)
+    policies.append(g.scale(g.op("Mul", king_move, onward_delta), 0.16 * strength))
+    evacuate = g.op("Mul", g.op("Mul", king_move, inner), current_demand)
+    policies.append(g.scale(evacuate, 4.0 * strength))
+    danger = g.op("Mul", king_move, g.clip(attacks[1]))
+    policies.append(g.scale(danger, -2.0 * strength))
+    depth = np.asarray(
+        [min(i // 8, i % 8, 7 - i // 8, 7 - i % 8) for i in range(64)], np.float32
+    )
+    inward = g.const(depth[None, :] - depth[:, None])
+    policies.append(g.scale(g.op("Mul", king_move, inward), 0.45 * strength))
+    for sign, count, demand in [(-1.0, room[0], demands[0]), (1.0, room[1], demands[1])]:
+        trapped = g.op(
+            "Cast", g.op("Less", count, g.const(0.5)), to=onnx.TensorProto.FLOAT
+        )
+        urgent_trap = g.op("Mul", trapped, g.reshape(g.reduce(demand, [2]), [0, 1]))
+        # Demand is broadcast over squares; normalize the reduction.
+        values.append(g.scale(urgent_trap, sign * 1.5 * strength / 64.0))
+    mobility = g.op("Sub", g.clip(room[0], 0.0, 3.0), g.clip(room[1], 0.0, 3.0))
+    values.append(g.scale(mobility, 0.06 * strength))
+    return policies, values
+
+
+def protection_terms(
+    g, p, ownocc, enemyocc, attacks, clear, relocate, masks, shots, cfg, force_target=None
+):
+    """Material safety and two-action threats, using Colony movement rules."""
+    moves = np.zeros((6, 64, 64), np.float32)
+    for f in range(64):
+        for t in range(64):
+            dr, dc = abs(t // 8 - f // 8), abs(t % 8 - f % 8)
+            d = max(dr, dc)
+            orth = (dr == 0 or dc == 0) and d > 0
+            moves[:, f, t] = [
+                orth and d <= 2,
+                orth and d <= 3,
+                (dr, dc) in [(1, 2), (2, 1)],
+                orth and d == 1,
+                0 < d <= 2 and (orth or dr == dc),
+                d == 1,
+            ]
+    empty = g.clip(g.op("Sub", g.const(1.0), g.add(ownocc, enemyocc, p[12])))
+    victims = g.op("Sub", ownocc, p[5])
+    threats, guard_removals = [], []
+    for typ in range(6):
+        quiet = g.op("Mul", g.const(moves[typ]), empty)
+        captures = g.op("Mul", g.const(masks[typ] * (1.0 - shots[typ])), victims)
+        first = g.add(quiet, captures)
+        if typ != 2:
+            first = g.op("Mul", first, clear)
+        first = g.op("Mul", first, g.reshape(p[6 + typ], [0, 64, 1]))
+        arrivals = g.reduce(first, [1], keepdims=1)
+        second = g.const(masks[typ])
+        if typ != 2:
+            second = g.op("Mul", second, clear)
+        reach = g.op("Mul", g.reshape(arrivals, [0, 64, 1]), second)
+        threats.append(g.reduce(reach, [1], keepdims=1))
+        captured_guard = g.op("Mul", g.reshape(victims, [0, 64, 1]), g.const(masks[5]))
+        guard_removals.append(
+            g.reduce(g.op("Mul", reach, captured_guard), [1], keepdims=1)
+        )
+    two = g.clip(g.add(*threats))
+    removed_guard = g.clip(g.add(*guard_removals))
+    strength = cfg["protection_priority"]
+    policies, values = [], []
+    scales = np.asarray(cfg["piece_scales"] or [1.0] * 6, np.float32)
+    costs = np.asarray([1.0, 1.8, 1.4, 1.3, 1.8, 0.0], np.float32) * scales
+    material = g.add(*[g.scale(p[i], float(costs[i])) for i in range(6)])
+    loss = g.op(
+        "Relu",
+        g.op(
+            "Sub",
+            g.reshape(material, [0, 64, 1]),
+            g.scale(g.reshape("target_map_1", [0, 1, 64]), 0.5),
+        ),
+    )
+    risk = g.add(g.clip(attacks[1]), g.scale(two, 0.35))
+    defended = g.op("Sub", g.const(1.0), g.scale(g.clip(attacks[0]), 0.35))
+    stage = g.op("Sub", g.const(1.5), p[13])
+    exposure = g.op("Mul", g.op("Mul", loss, risk), g.op("Mul", relocate, defended))
+    policies.append(g.scale(g.op("Mul", exposure, stage), -strength))
+    guards = g.reshape("own_guards", [0, 1, 64])
+    unguarded = g.op(
+        "Cast", g.op("Less", guards, g.const(1.0)), to=onnx.TensorProto.FLOAT
+    )
+    one_guard = g.op(
+        "Cast", g.op("Less", guards, g.const(2.0)), to=onnx.TensorProto.FLOAT
+    )
+    king_risk = g.add(
+        g.op("Mul", g.clip(attacks[1]), one_guard),
+        g.op("Mul", two, unguarded),
+        g.op("Mul", removed_guard, one_guard),
+    )
+    king_exposure = g.op("Mul", g.reshape(p[5], [0, 64, 1]), g.clip(king_risk))
+    policies.append(
+        g.scale(g.op("Mul", g.op("Mul", king_exposure, relocate), stage), -3.0 * strength)
+    )
+    current_risk = g.reduce(g.op("Mul", p[5], g.clip(king_risk)), [1, 2])
+    values.append(g.scale(g.reshape(current_risk, [0, 1]), -0.3 * strength))
+    if cfg["evacuate_all"]:
+        ring = g.reshape("burning_ring", [0, 1, 64])
+        urgency = g.clip(g.scale(g.op("Sub", p[14], g.const(0.25)), 2.0))
+        burning = g.op("Mul", ring, urgency)
+        delta = g.op("Sub", g.reshape(burning, [0, 64, 1]), burning)
+        # Even a piece that moves can still burn if its destination remains
+        # on the next disappearing ring (Trace H7->H6 in match 18883).
+        evacuate = g.op(
+            "Mul", g.op("Mul", g.reshape(ownocc, [0, 64, 1]), delta), relocate
+        )
+        policies.append(g.scale(evacuate, 1.5 * cfg["evacuate_all"]))
+        after = g.add(
+            g.op("Mul", relocate, burning),
+            g.op(
+                "Mul", g.op("Sub", g.const(1.0), relocate), g.reshape(burning, [0, 64, 1])
+            ),
+        )
+        staying = g.op(
+            "Mul", g.reshape(g.add(material, g.scale(p[5], 5.0)), [0, 64, 1]), after
+        )
+        if force_target is not None:
+            staying = g.op("Mul", staying, g.op("Sub", g.const(1.0), force_target))
+        policies.append(g.scale(staying, -cfg["evacuate_all"]))
+    return policies, values
 
 
 def build(output, config=None, base=None):
@@ -330,6 +520,9 @@ def build(output, config=None, base=None):
             or cfg["followup"]
             or cfg["side_strategy"]
             or cfg["border_safety"]
+            or cfg["kernel_routes"]
+            or cfg["protection_priority"]
+            or cfg["evacuate_all"]
         ):
             # Shooting and bodyguard redirection leave the attacker in place.
             shot_terms = []
@@ -418,6 +611,35 @@ def build(output, config=None, base=None):
                 extra_value.append(
                     g.scale(g.reshape(exposed, [0, 1]), -0.2 * cfg["border_safety"])
                 )
+            if cfg["kernel_routes"]:
+                route_policy, route_value = kernel_route_terms(
+                    g,
+                    p,
+                    ownocc,
+                    enemyocc,
+                    attacks,
+                    relocate,
+                    masks[5],
+                    cfg["kernel_routes"],
+                )
+                extra_policy.extend(route_policy)
+                extra_value.extend(route_value)
+            if cfg["protection_priority"] or cfg["evacuate_all"]:
+                protect_policy, protect_value = protection_terms(
+                    g,
+                    p,
+                    ownocc,
+                    enemyocc,
+                    attacks,
+                    clear,
+                    relocate,
+                    masks,
+                    shots,
+                    cfg,
+                    force_target,
+                )
+                extra_policy.extend(protect_policy)
+                extra_value.extend(protect_value)
 
         if extra_value:
             for node in model.graph.node:

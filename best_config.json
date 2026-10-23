@@ -27,5 +27,8 @@
   "followup_last": 0.15,
   "side_strategy": 0.75,
   "cyan_policy_scale": 0.6,
-  "border_safety": 1.0
+  "border_safety": 1.0,
+  "kernel_routes": 1.0,
+  "protection_priority": 0.8,
+  "evacuate_all": 1.0
 }
