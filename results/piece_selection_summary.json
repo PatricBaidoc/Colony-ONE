@@ -1,0 +1,199 @@
+[
+  {
+    "name": "trace",
+    "config": {
+      "capture_scale": 1.0,
+      "central_scale": 1.0,
+      "material_scale": 1.0,
+      "unsafe": 0.5,
+      "guard_bonus": 0.06,
+      "burn": 0.65,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.0,
+      "pressure": 0.0,
+      "force_win": true,
+      "force_policy": 4.0,
+      "piece_scales": [
+        1.0,
+        1.0,
+        1.0,
+        2.0,
+        1.0,
+        1.0
+      ],
+      "guard_policy": true
+    },
+    "wins": 27,
+    "losses": 13,
+    "games": 40,
+    "winrate": 0.675,
+    "wilson95": [
+      0.5201774618987768,
+      0.799154977682173
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 9,
+        "games": 20,
+        "wilson95": [
+          0.2581978582556243,
+          0.6579146575496577
+        ]
+      },
+      "MAGENTA": {
+        "wins": 18,
+        "games": 20,
+        "wilson95": [
+          0.6989663547715128,
+          0.9721335187862319
+        ]
+      }
+    },
+    "paired_bootstrap95": [
+      0.55,
+      0.8
+    ],
+    "elo_difference_smoothed": 123.59957013410263,
+    "local_glicko2": {
+      "rating": 1620.093658533585,
+      "rd": 54.93299965429768,
+      "volatility": 0.05999715014182256,
+      "assumptions": "One period; candidate 1500/RD350/sigma0.06, fixed reference 1500/RD50, tau0.5. Not live tournament Glicko-2."
+    },
+    "mean_actions": 40.05,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "shooters",
+    "config": {
+      "capture_scale": 1.0,
+      "central_scale": 1.0,
+      "material_scale": 1.0,
+      "unsafe": 0.5,
+      "guard_bonus": 0.06,
+      "burn": 0.65,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.0,
+      "pressure": 0.0,
+      "force_win": true,
+      "force_policy": 4.0,
+      "piece_scales": [
+        1.0,
+        1.6,
+        0.9,
+        1.8,
+        1.2,
+        1.0
+      ],
+      "guard_policy": true
+    },
+    "wins": 23,
+    "losses": 17,
+    "games": 40,
+    "winrate": 0.575,
+    "wilson95": [
+      0.42195068541991065,
+      0.7149060744004962
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 8,
+        "games": 20,
+        "wilson95": [
+          0.21880653237281705,
+          0.6134184992377469
+        ]
+      },
+      "MAGENTA": {
+        "wins": 15,
+        "games": 20,
+        "wilson95": [
+          0.531299122381256,
+          0.8881382985923343
+        ]
+      }
+    },
+    "paired_bootstrap95": [
+      0.4,
+      0.725
+    ],
+    "elo_difference_smoothed": 51.211925434176685,
+    "local_glicko2": {
+      "rating": 1551.4687107881732,
+      "rd": 54.9329996479287,
+      "volatility": 0.05999683113937133,
+      "assumptions": "One period; candidate 1500/RD350/sigma0.06, fixed reference 1500/RD50, tau0.5. Not live tournament Glicko-2."
+    },
+    "mean_actions": 41.1,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "force_soft",
+    "config": {
+      "capture_scale": 0.7,
+      "central_scale": 1.0,
+      "material_scale": 1.0,
+      "unsafe": 0.5,
+      "guard_bonus": 0.06,
+      "burn": 0.65,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.0,
+      "pressure": 0.0,
+      "force_win": true,
+      "force_policy": 4.0,
+      "piece_scales": null,
+      "guard_policy": true
+    },
+    "wins": 17,
+    "losses": 23,
+    "games": 40,
+    "winrate": 0.425,
+    "wilson95": [
+      0.28509392559950375,
+      0.5780493145800892
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 7,
+        "games": 20,
+        "wilson95": [
+          0.18119182410108206,
+          0.5671457233147638
+        ]
+      },
+      "MAGENTA": {
+        "wins": 10,
+        "games": 20,
+        "wilson95": [
+          0.2992980081982123,
+          0.7007019918017877
+        ]
+      }
+    },
+    "paired_bootstrap95": [
+      0.275,
+      0.575
+    ],
+    "elo_difference_smoothed": -51.21192543417676,
+    "local_glicko2": {
+      "rating": 1448.5312892118268,
+      "rd": 54.9329996479287,
+      "volatility": 0.05999683113937133,
+      "assumptions": "One period; candidate 1500/RD350/sigma0.06, fixed reference 1500/RD50, tau0.5. Not live tournament Glicko-2."
+    },
+    "mean_actions": 41.775,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  }
+]

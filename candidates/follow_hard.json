@@ -1,0 +1,28 @@
+{
+  "capture_scale": 1.0,
+  "central_scale": 1.0,
+  "material_scale": 1.0,
+  "unsafe": 0.5,
+  "guard_bonus": 0.06,
+  "burn": 0.65,
+  "attack": 0.35,
+  "exact": true,
+  "risk": 0.0,
+  "policy_risk": 0.0,
+  "kernel_policy_risk": 0.0,
+  "tempo": 0.0,
+  "pressure": 0.0,
+  "force_win": true,
+  "force_policy": 4.0,
+  "piece_scales": [
+    1.0,
+    1.0,
+    1.0,
+    2.0,
+    1.0,
+    1.0
+  ],
+  "guard_policy": true,
+  "followup": 0.7,
+  "followup_last": 0.15
+}

@@ -1,0 +1,308 @@
+{
+  "model_a": "/workspace/Colony-ONE/candidates/follow_trace.onnx",
+  "model_b": "/workspace/Colony-ONE/baselines/model11.onnx",
+  "sha256_a": "e086da592f1d08c1ea9503c16fef597bbcfda48860c6704bbb155527cb91bab6",
+  "sha256_b": "10c0371beb415114fc0cb944f2ef30ed012ba55bb74e9f06c618ec5ee56aa4c3",
+  "scene_sha256": "5489fce67399e60fa5d291d249cb4e524dd90705da5221cb9e2f1a690338270f",
+  "simulations": 100,
+  "seed": 12000,
+  "summary": {
+    "wins": 21,
+    "losses": 11,
+    "games": 32,
+    "winrate": 0.65625,
+    "wilson95": [
+      0.4831108797896222,
+      0.7958956207556682
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 11,
+        "games": 16,
+        "wilson95": [
+          0.44404355834740666,
+          0.8583535614521796
+        ]
+      },
+      "MAGENTA": {
+        "wins": 10,
+        "games": 16,
+        "wilson95": [
+          0.38641040545502714,
+          0.8151876744113636
+        ]
+      }
+    },
+    "paired_bootstrap95": [
+      0.46875,
+      0.8125
+    ],
+    "elo_difference_smoothed": 108.69624782479745,
+    "local_glicko2": {
+      "rating": 1606.5707529729339,
+      "rd": 61.22887951053191,
+      "volatility": 0.05999708690628903,
+      "assumptions": "One period; candidate 1500/RD350/sigma0.06, fixed reference 1500/RD50, tau0.5. Not live tournament Glicko-2."
+    },
+    "mean_actions": 41.28125,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  "games": [
+    {
+      "seed": 12000,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 66,
+      "seconds": 2.818683100000044
+    },
+    {
+      "seed": 12000,
+      "a_side": "MAGENTA",
+      "a_won": false,
+      "winner": "CYAN",
+      "actions": 38,
+      "seconds": 4.361397895999971
+    },
+    {
+      "seed": 12002,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 26,
+      "seconds": 4.712210890999813
+    },
+    {
+      "seed": 12002,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 40,
+      "seconds": 7.257453921999968
+    },
+    {
+      "seed": 12004,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 26,
+      "seconds": 0.9565073640001174
+    },
+    {
+      "seed": 12004,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 56,
+      "seconds": 2.1436979210000118
+    },
+    {
+      "seed": 12006,
+      "a_side": "CYAN",
+      "a_won": false,
+      "winner": "MAGENTA",
+      "actions": 54,
+      "seconds": 6.571967516000086
+    },
+    {
+      "seed": 12006,
+      "a_side": "MAGENTA",
+      "a_won": false,
+      "winner": "CYAN",
+      "actions": 34,
+      "seconds": 5.6545759869998165
+    },
+    {
+      "seed": 12008,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 62,
+      "seconds": 2.2190304739999647
+    },
+    {
+      "seed": 12008,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 40,
+      "seconds": 1.80494234899993
+    },
+    {
+      "seed": 12010,
+      "a_side": "CYAN",
+      "a_won": false,
+      "winner": "MAGENTA",
+      "actions": 38,
+      "seconds": 7.228880751999895
+    },
+    {
+      "seed": 12010,
+      "a_side": "MAGENTA",
+      "a_won": false,
+      "winner": "CYAN",
+      "actions": 34,
+      "seconds": 1.5744967299999644
+    },
+    {
+      "seed": 12012,
+      "a_side": "CYAN",
+      "a_won": false,
+      "winner": "MAGENTA",
+      "actions": 28,
+      "seconds": 2.377715606000038
+    },
+    {
+      "seed": 12012,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 40,
+      "seconds": 3.213932655000008
+    },
+    {
+      "seed": 12014,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 30,
+      "seconds": 3.847660390000101
+    },
+    {
+      "seed": 12014,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 60,
+      "seconds": 9.563662169000054
+    },
+    {
+      "seed": 12016,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 58,
+      "seconds": 5.884550539999964
+    },
+    {
+      "seed": 12016,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 48,
+      "seconds": 6.771197442999892
+    },
+    {
+      "seed": 12018,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 38,
+      "seconds": 5.712727465999933
+    },
+    {
+      "seed": 12018,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 36,
+      "seconds": 7.699953155999992
+    },
+    {
+      "seed": 12020,
+      "a_side": "CYAN",
+      "a_won": false,
+      "winner": "MAGENTA",
+      "actions": 32,
+      "seconds": 6.438891156999944
+    },
+    {
+      "seed": 12020,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 36,
+      "seconds": 7.1770488600000135
+    },
+    {
+      "seed": 12022,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 65,
+      "seconds": 11.043181763999883
+    },
+    {
+      "seed": 12022,
+      "a_side": "MAGENTA",
+      "a_won": false,
+      "winner": "CYAN",
+      "actions": 40,
+      "seconds": 6.9671456910000416
+    },
+    {
+      "seed": 12024,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 34,
+      "seconds": 5.138718376999805
+    },
+    {
+      "seed": 12024,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 36,
+      "seconds": 7.351033849000032
+    },
+    {
+      "seed": 12026,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 46,
+      "seconds": 6.853540044999818
+    },
+    {
+      "seed": 12026,
+      "a_side": "MAGENTA",
+      "a_won": false,
+      "winner": "CYAN",
+      "actions": 34,
+      "seconds": 2.916331999000022
+    },
+    {
+      "seed": 12028,
+      "a_side": "CYAN",
+      "a_won": false,
+      "winner": "MAGENTA",
+      "actions": 38,
+      "seconds": 5.708417263999991
+    },
+    {
+      "seed": 12028,
+      "a_side": "MAGENTA",
+      "a_won": true,
+      "winner": "MAGENTA",
+      "actions": 28,
+      "seconds": 4.382962865000081
+    },
+    {
+      "seed": 12030,
+      "a_side": "CYAN",
+      "a_won": true,
+      "winner": "CYAN",
+      "actions": 42,
+      "seconds": 1.6142386679998708
+    },
+    {
+      "seed": 12030,
+      "a_side": "MAGENTA",
+      "a_won": false,
+      "winner": "CYAN",
+      "actions": 38,
+      "seconds": 1.2746886620000168
+    }
+  ]
+}

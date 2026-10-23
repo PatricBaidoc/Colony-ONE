@@ -1,0 +1,32 @@
+{
+  "selected_candidate": "trace",
+  "selection": "27/40 on selection seeds 5000..5038; 17/24 on screening seeds 1000..1022",
+  "model_sha256": "ea70a668862e1f834f320613c0cf1ab0d87c263f1b4ff44aeeb124e3feea473d",
+  "primary": {
+    "opponent": "baselines/model11.onnx",
+    "pairs": 50,
+    "seed": 90000,
+    "simulations": 100
+  },
+  "secondary": [
+    {
+      "opponent": "baselines/model1.onnx",
+      "pairs": 10,
+      "seed": 91000,
+      "simulations": 100
+    },
+    {
+      "opponent": "baselines/v2.onnx",
+      "pairs": 10,
+      "seed": 92000,
+      "simulations": 100
+    },
+    {
+      "opponent": "baselines/model_claude2.onnx",
+      "pairs": 10,
+      "seed": 93000,
+      "simulations": 100
+    }
+  ],
+  "rule": "No changes to model/config based on primary or secondary final test outcomes."
+}

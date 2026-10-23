@@ -1,0 +1,3 @@
+6b71744f625f9b3adc36eab46333fb97c42ee9cb4965afbbd08faa6dc11fdaaa  model11_optimized.onnx
+00308d2efc9bf4b3e6492255e550a060b31439a9aef33e0b0702f1981c510eb2  downloads/colony-one-model11-optimized.zip
+e839168b30d47b27e4ef7307905384a1b2088e5afe4d2e54c8b483b2cb87a7fd  REPORT.md

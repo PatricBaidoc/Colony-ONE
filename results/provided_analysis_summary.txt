@@ -1,0 +1,25 @@
+{
+  "total": 30,
+  "protocols_available": 27,
+  "unavailable": 3,
+  "wins_from_protocol": 12,
+  "losses_from_protocol": 15,
+  "winrate_from_protocol": 0.4444444444444444,
+  "replay_verified": 27,
+  "score_field_interpretation": "Every available score matches 1 for CYAN win, 0 for MAGENTA win, not the user outcome.",
+  "score_matches_cyan_winner": true,
+  "by_side": {
+    "CYAN": {
+      "games": 13,
+      "wins": 7
+    },
+    "MAGENTA": {
+      "games": 14,
+      "wins": 5
+    }
+  },
+  "loss_causes": {
+    "kernel_capture": 14,
+    "bare_kernels": 1
+  }
+}

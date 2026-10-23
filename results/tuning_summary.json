@@ -1,0 +1,425 @@
+[
+  {
+    "name": "exact_only",
+    "config": {
+      "capture_scale": 1.0,
+      "central_scale": 1.0,
+      "material_scale": 1.0,
+      "unsafe": 0.5,
+      "guard_bonus": 0.06,
+      "burn": 0.65,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.0,
+      "pressure": 0.0
+    },
+    "wins": 8,
+    "losses": 4,
+    "games": 12,
+    "winrate": 0.6666666666666666,
+    "wilson95": [
+      0.39062208887279953,
+      0.8618799089087867
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 5,
+        "games": 6,
+        "wilson95": [
+          0.43649717781352987,
+          0.9699466302516935
+        ]
+      },
+      "MAGENTA": {
+        "wins": 3,
+        "games": 6,
+        "wilson95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ]
+      }
+    },
+    "elo_difference_smoothed": 110.48256477557965,
+    "mean_actions": 35.083333333333336,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "soft",
+    "config": {
+      "capture_scale": 0.7,
+      "central_scale": 1.3,
+      "material_scale": 1.3,
+      "unsafe": 0.25,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.0,
+      "pressure": 0.0
+    },
+    "wins": 8,
+    "losses": 4,
+    "games": 12,
+    "winrate": 0.6666666666666666,
+    "wilson95": [
+      0.39062208887279953,
+      0.8618799089087867
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 5,
+        "games": 6,
+        "wilson95": [
+          0.43649717781352987,
+          0.9699466302516935
+        ]
+      },
+      "MAGENTA": {
+        "wins": 3,
+        "games": 6,
+        "wilson95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ]
+      }
+    },
+    "elo_difference_smoothed": 110.48256477557965,
+    "mean_actions": 45.666666666666664,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "tempo",
+    "config": {
+      "capture_scale": 0.7,
+      "central_scale": 1.3,
+      "material_scale": 1.3,
+      "unsafe": 0.25,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.5,
+      "policy_risk": 1.0,
+      "kernel_policy_risk": 1.0,
+      "tempo": 0.3,
+      "pressure": 0.0
+    },
+    "wins": 9,
+    "losses": 3,
+    "games": 12,
+    "winrate": 0.75,
+    "wilson95": [
+      0.46769466506643426,
+      0.9110583316059453
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 4,
+        "games": 6,
+        "wilson95": [
+          0.299993315138392,
+          0.9032285888942195
+        ]
+      },
+      "MAGENTA": {
+        "wins": 5,
+        "games": 6,
+        "wilson95": [
+          0.43649717781352987,
+          0.9699466302516935
+        ]
+      }
+    },
+    "elo_difference_smoothed": 173.46222437542883,
+    "mean_actions": 45.25,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "aggressive",
+    "config": {
+      "capture_scale": 0.7,
+      "central_scale": 1.3,
+      "material_scale": 2.0,
+      "unsafe": 0.1,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.5,
+      "exact": true,
+      "risk": 0.5,
+      "policy_risk": 0.75,
+      "kernel_policy_risk": 1.5,
+      "tempo": 0.45,
+      "pressure": 0.0
+    },
+    "wins": 6,
+    "losses": 6,
+    "games": 12,
+    "winrate": 0.5,
+    "wilson95": [
+      0.2537815976337061,
+      0.7462184023662939
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 1,
+        "games": 6,
+        "wilson95": [
+          0.030053369748306635,
+          0.5635028221864702
+        ]
+      },
+      "MAGENTA": {
+        "wins": 5,
+        "games": 6,
+        "wilson95": [
+          0.43649717781352987,
+          0.9699466302516935
+        ]
+      }
+    },
+    "elo_difference_smoothed": 0.0,
+    "mean_actions": 38.416666666666664,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "safety",
+    "config": {
+      "capture_scale": 0.7,
+      "central_scale": 1.3,
+      "material_scale": 1.3,
+      "unsafe": 0.5,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.75,
+      "policy_risk": 2.0,
+      "kernel_policy_risk": 2.0,
+      "tempo": 0.15,
+      "pressure": 0.0
+    },
+    "wins": 7,
+    "losses": 5,
+    "games": 12,
+    "winrate": 0.5833333333333334,
+    "wilson95": [
+      0.31951131254954973,
+      0.8067396863412435
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 3,
+        "games": 6,
+        "wilson95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ]
+      },
+      "MAGENTA": {
+        "wins": 4,
+        "games": 6,
+        "wilson95": [
+          0.299993315138392,
+          0.9032285888942195
+        ]
+      }
+    },
+    "elo_difference_smoothed": 53.87942955898244,
+    "mean_actions": 43.75,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "capture",
+    "config": {
+      "capture_scale": 1.1,
+      "central_scale": 1.3,
+      "material_scale": 2.0,
+      "unsafe": 0.25,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.6,
+      "exact": true,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.45,
+      "pressure": 0.0
+    },
+    "wins": 7,
+    "losses": 5,
+    "games": 12,
+    "winrate": 0.5833333333333334,
+    "wilson95": [
+      0.31951131254954973,
+      0.8067396863412435
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 5,
+        "games": 6,
+        "wilson95": [
+          0.43649717781352987,
+          0.9699466302516935
+        ]
+      },
+      "MAGENTA": {
+        "wins": 2,
+        "games": 6,
+        "wilson95": [
+          0.09677141110578041,
+          0.700006684861608
+        ]
+      }
+    },
+    "elo_difference_smoothed": 53.87942955898244,
+    "mean_actions": 44.333333333333336,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "control",
+    "config": {
+      "capture_scale": 0.7,
+      "central_scale": 1.3,
+      "material_scale": 1.3,
+      "unsafe": 0.25,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.35,
+      "exact": true,
+      "risk": 0.5,
+      "policy_risk": 1.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.25,
+      "pressure": 0.03
+    },
+    "wins": 6,
+    "losses": 6,
+    "games": 12,
+    "winrate": 0.5,
+    "wilson95": [
+      0.2537815976337061,
+      0.7462184023662939
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 3,
+        "games": 6,
+        "wilson95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ]
+      },
+      "MAGENTA": {
+        "wins": 3,
+        "games": 6,
+        "wilson95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ]
+      }
+    },
+    "elo_difference_smoothed": 0.0,
+    "mean_actions": 38.416666666666664,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "sharp",
+    "config": {
+      "capture_scale": 0.5,
+      "central_scale": 1.3,
+      "material_scale": 1.5,
+      "unsafe": 0.0,
+      "guard_bonus": 0.06,
+      "burn": 0.9,
+      "attack": 0.7,
+      "exact": true,
+      "risk": 1.0,
+      "policy_risk": 1.25,
+      "kernel_policy_risk": 1.5,
+      "tempo": 0.65,
+      "pressure": 0.0
+    },
+    "wins": 10,
+    "losses": 2,
+    "games": 12,
+    "winrate": 0.8333333333333334,
+    "wilson95": [
+      0.5519691377470266,
+      0.9530348578161463
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 4,
+        "games": 6,
+        "wilson95": [
+          0.299993315138392,
+          0.9032285888942195
+        ]
+      },
+      "MAGENTA": {
+        "wins": 6,
+        "games": 6,
+        "wilson95": [
+          0.6096657120978346,
+          1.0
+        ]
+      }
+    },
+    "elo_difference_smoothed": 249.29971615916017,
+    "mean_actions": 44.083333333333336,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  },
+  {
+    "name": "retune",
+    "config": {
+      "capture_scale": 0.6,
+      "central_scale": 1.0,
+      "material_scale": 1.5,
+      "unsafe": 0.2,
+      "guard_bonus": 0.06,
+      "burn": 0.65,
+      "attack": 0.5,
+      "exact": false,
+      "risk": 0.0,
+      "policy_risk": 0.0,
+      "kernel_policy_risk": 0.0,
+      "tempo": 0.0,
+      "pressure": 0.0
+    },
+    "wins": 5,
+    "losses": 7,
+    "games": 12,
+    "winrate": 0.4166666666666667,
+    "wilson95": [
+      0.19326031365875665,
+      0.6804886874504503
+    ],
+    "by_side": {
+      "CYAN": {
+        "wins": 3,
+        "games": 6,
+        "wilson95": [
+          0.1876163064826506,
+          0.8123836935173494
+        ]
+      },
+      "MAGENTA": {
+        "wins": 2,
+        "games": 6,
+        "wilson95": [
+          0.09677141110578041,
+          0.700006684861608
+        ]
+      }
+    },
+    "elo_difference_smoothed": -53.87942955898246,
+    "mean_actions": 45.5,
+    "note": "Local results only. Elo difference is descriptive, not server Glicko-2."
+  }
+]

@@ -1,0 +1,336 @@
+{
+  "total": 30,
+  "protocols_available": 27,
+  "unavailable": 3,
+  "wins_from_protocol": 12,
+  "losses_from_protocol": 15,
+  "winrate_from_protocol": 0.4444444444444444,
+  "replay_verified": 27,
+  "score_field_interpretation": "Every available score matches 1 for CYAN win, 0 for MAGENTA win, not the user outcome.",
+  "score_matches_cyan_winner": true,
+  "by_side": {
+    "CYAN": {
+      "games": 13,
+      "wins": 7
+    },
+    "MAGENTA": {
+      "games": 14,
+      "wins": 5
+    }
+  },
+  "loss_causes": {
+    "kernel_capture": 14,
+    "bare_kernels": 1
+  },
+  "games": [
+    {
+      "match_id": 13436,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "Acica",
+      "actions": 38,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 13424,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 26,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 13226,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 30,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 13080,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 26,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12894,
+      "side": "CYAN",
+      "winner": "MAGENTA",
+      "won": false,
+      "score_field": 0,
+      "opponent": "",
+      "actions": 52,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12893,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 38,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12719,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "Havana150 and Claude",
+      "actions": 58,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12661,
+      "side": "CYAN",
+      "winner": "MAGENTA",
+      "won": false,
+      "score_field": 0,
+      "opponent": "Mai putina nicotina, mai multa proteina",
+      "actions": 40,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12541,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "DXP",
+      "actions": 62,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12404,
+      "side": "CYAN",
+      "winner": "MAGENTA",
+      "won": false,
+      "score_field": 0,
+      "opponent": "Echipa Team",
+      "actions": 56,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12249,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "tokenii lui vlad tepes",
+      "actions": 38,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12226,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "buzacristian25",
+      "actions": 34,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 12117,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 26,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 11947,
+      "side": "MAGENTA",
+      "winner": "MAGENTA",
+      "won": true,
+      "score_field": 0,
+      "opponent": "MP_DIN_LOOK",
+      "actions": 16,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 11283,
+      "side": "MAGENTA",
+      "winner": "MAGENTA",
+      "won": true,
+      "score_field": 0,
+      "opponent": "",
+      "actions": 28,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 11265,
+      "side": "CYAN",
+      "winner": "MAGENTA",
+      "won": false,
+      "score_field": 0,
+      "opponent": "",
+      "actions": 36,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 10955,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "MP_DIN_LOOK",
+      "actions": 26,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 10954,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "buzacristian25",
+      "actions": 32,
+      "replay_verified": true,
+      "terminal_kind": "firewall"
+    },
+    {
+      "match_id": 10860,
+      "side": "MAGENTA",
+      "winner": "MAGENTA",
+      "won": true,
+      "score_field": 0,
+      "opponent": "AiDHD",
+      "actions": 52,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 10846,
+      "side": "CYAN",
+      "winner": "MAGENTA",
+      "won": false,
+      "score_field": 0,
+      "opponent": "MP_DIN_LOOK",
+      "actions": 50,
+      "replay_verified": true,
+      "terminal_kind": "bare_kernels"
+    },
+    {
+      "match_id": 10639,
+      "side": "MAGENTA",
+      "winner": "MAGENTA",
+      "won": true,
+      "score_field": 0,
+      "opponent": "",
+      "actions": 56,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 10524,
+      "unavailable": true
+    },
+    {
+      "match_id": 10453,
+      "unavailable": true
+    },
+    {
+      "match_id": 10317,
+      "unavailable": true
+    },
+    {
+      "match_id": 10165,
+      "side": "MAGENTA",
+      "winner": "MAGENTA",
+      "won": true,
+      "score_field": 0,
+      "opponent": "",
+      "actions": 28,
+      "replay_verified": true,
+      "terminal_kind": "bare_kernels"
+    },
+    {
+      "match_id": 10118,
+      "side": "CYAN",
+      "winner": "MAGENTA",
+      "won": false,
+      "score_field": 0,
+      "opponent": "",
+      "actions": 36,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 10033,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 22,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 9919,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 26,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 9663,
+      "side": "CYAN",
+      "winner": "CYAN",
+      "won": true,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 34,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    },
+    {
+      "match_id": 9495,
+      "side": "MAGENTA",
+      "winner": "CYAN",
+      "won": false,
+      "score_field": 1,
+      "opponent": "",
+      "actions": 42,
+      "replay_verified": true,
+      "terminal_kind": "kernel_capture"
+    }
+  ]
+}
