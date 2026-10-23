@@ -30,5 +30,8 @@
   "border_safety": 1.0,
   "kernel_routes": 1.0,
   "protection_priority": 0.8,
-  "evacuate_all": 1.0
+  "evacuate_all": 1.0,
+  "turn_planning": 1.0,
+  "advanced_tactics": 1.0,
+  "learned_residual": 0.2
 }

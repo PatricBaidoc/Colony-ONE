@@ -19,6 +19,12 @@ Rezultatul **60/100** și verdictul **ACCEPTED** aparțin versiunii precedente,
 păstrate în `baselines/model11_strategy_v1.onnx`; nu sunt rezultate pentru noul
 export. Detaliile și analiza jurnalului nou sunt în [REPORT.md](REPORT.md).
 
+Actualizarea din partida `22872` adaugă bugetul exact până la firewall, rute
+alternative, coordonare între piese, finaluri cu doi Kerneluri și un rezidual
+antrenat pe 984 exemple istorice. `learn_from_logs.py` reproduce antrenarea;
+ponderile sunt în `learned_weights.npz` și sunt incluse în ONNX la export.
+Antrenarea nu demonstrează un winrate mai bun. Nu au fost rulate teste noi.
+
 ## Instalare
 
 Python 3.11–3.14, pe 64 de biți. Nu este necesar GPU, PyTorch sau acces la un

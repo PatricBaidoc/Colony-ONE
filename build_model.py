@@ -42,6 +42,9 @@ DEFAULTS = {
     "kernel_routes": 0.0,
     "protection_priority": 0.0,
     "evacuate_all": 0.0,
+    "turn_planning": 0.0,
+    "advanced_tactics": 0.0,
+    "learned_residual": 0.0,
 }
 
 
@@ -228,27 +231,57 @@ def protection_terms(
                 d == 1,
             ]
     empty = g.clip(g.op("Sub", g.const(1.0), g.add(ownocc, enemyocc, p[12])))
+    # When evaluating a King move its old square becomes empty. In match
+    # 22872, D3->E2 otherwise hid the enemy Ping's C3->D3->E2 approach.
+    empty_after_king = g.clip(g.add(empty, p[5]))
+    _, route_mids, route_uses, _ = geometry()
+    no_king = g.reshape(g.add(g.op("Sub", ownocc, p[5]), enemyocc, p[12]), [0, 64])
+    between = []
+    for k in range(2):
+        between.append(
+            g.op(
+                "Mul",
+                g.op("Gather", no_king, g.const(route_mids[k], dtype=np.int64), axis=1),
+                g.const(route_uses[k]),
+            )
+        )
+    clear_after_king = g.clip(g.op("Sub", g.const(1.0), g.add(*between)))
     victims = g.op("Sub", ownocc, p[5])
     threats, guard_removals = [], []
+    king_threats, king_guard_removals = [], []
     for typ in range(6):
         quiet = g.op("Mul", g.const(moves[typ]), empty)
+        king_quiet = g.op("Mul", g.const(moves[typ]), empty_after_king)
         captures = g.op("Mul", g.const(masks[typ] * (1.0 - shots[typ])), victims)
         first = g.add(quiet, captures)
+        king_first = g.add(king_quiet, captures)
         if typ != 2:
             first = g.op("Mul", first, clear)
+            king_first = g.op("Mul", king_first, clear_after_king)
         first = g.op("Mul", first, g.reshape(p[6 + typ], [0, 64, 1]))
+        king_first = g.op("Mul", king_first, g.reshape(p[6 + typ], [0, 64, 1]))
         arrivals = g.reduce(first, [1], keepdims=1)
         second = g.const(masks[typ])
+        king_second = g.const(masks[typ])
         if typ != 2:
             second = g.op("Mul", second, clear)
+            king_second = g.op("Mul", king_second, clear_after_king)
         reach = g.op("Mul", g.reshape(arrivals, [0, 64, 1]), second)
         threats.append(g.reduce(reach, [1], keepdims=1))
         captured_guard = g.op("Mul", g.reshape(victims, [0, 64, 1]), g.const(masks[5]))
         guard_removals.append(
             g.reduce(g.op("Mul", reach, captured_guard), [1], keepdims=1)
         )
+        king_arrivals = g.reduce(king_first, [1], keepdims=1)
+        king_reach = g.op("Mul", g.reshape(king_arrivals, [0, 64, 1]), king_second)
+        king_threats.append(g.reduce(king_reach, [1], keepdims=1))
+        king_guard_removals.append(
+            g.reduce(g.op("Mul", king_reach, captured_guard), [1], keepdims=1)
+        )
     two = g.clip(g.add(*threats))
     removed_guard = g.clip(g.add(*guard_removals))
+    future_king_two = g.clip(g.add(*king_threats))
+    future_guard_removed = g.clip(g.add(*king_guard_removals))
     strength = cfg["protection_priority"]
     policies, values = [], []
     scales = np.asarray(cfg["piece_scales"] or [1.0] * 6, np.float32)
@@ -276,8 +309,8 @@ def protection_terms(
     )
     king_risk = g.add(
         g.op("Mul", g.clip(attacks[1]), one_guard),
-        g.op("Mul", two, unguarded),
-        g.op("Mul", removed_guard, one_guard),
+        g.op("Mul", future_king_two, unguarded),
+        g.op("Mul", future_guard_removed, one_guard),
     )
     king_exposure = g.op("Mul", g.reshape(p[5], [0, 64, 1]), g.clip(king_risk))
     policies.append(
@@ -523,6 +556,8 @@ def build(output, config=None, base=None):
             or cfg["kernel_routes"]
             or cfg["protection_priority"]
             or cfg["evacuate_all"]
+            or cfg["turn_planning"]
+            or cfg["advanced_tactics"]
         ):
             # Shooting and bodyguard redirection leave the attacker in place.
             shot_terms = []
@@ -640,6 +675,52 @@ def build(output, config=None, base=None):
                 )
                 extra_policy.extend(protect_policy)
                 extra_value.extend(protect_value)
+            if cfg["turn_planning"]:
+                from turn_planner import turn_planner
+
+                plan_policy, plan_value = turn_planner(
+                    g,
+                    p,
+                    ownocc,
+                    enemyocc,
+                    attacks,
+                    clear,
+                    relocate,
+                    masks,
+                    shots,
+                    force_target,
+                    cfg["turn_planning"],
+                )
+                extra_policy.extend(plan_policy)
+                extra_value.extend(plan_value)
+            if cfg["advanced_tactics"]:
+                from advanced_tactics import advanced_tactics
+
+                tactical_policy, tactical_value = advanced_tactics(
+                    g,
+                    p,
+                    ownocc,
+                    enemyocc,
+                    attacks,
+                    clear,
+                    relocate,
+                    masks,
+                    shots,
+                    force_target,
+                    strength=cfg["advanced_tactics"],
+                )
+                extra_policy.extend(tactical_policy)
+                extra_value.extend(tactical_value)
+
+        if cfg["learned_residual"]:
+            from learned_policy import add_learned_policy
+
+            learned_grid, _ = add_learned_policy(
+                g,
+                ROOT / "learned_weights.npz",
+                scale=cfg["learned_residual"],
+            )
+            extra_policy.append(learned_grid)
 
         if extra_value:
             for node in model.graph.node:

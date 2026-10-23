@@ -1,5 +1,5 @@
 {
-  "model_sha256": "731a8b0ddbd5401f288a0833037128b1678efe92c8f5f03968eae85a116dd8bd",
-  "status": "cancelled_by_user",
+  "model_sha256": "28120295260eef750c9d2d4766d0b870c32fea9582bc74f16587017637bf7b7a",
+  "status": "not_requested_user_wants_no_tests",
   "tests_run_for_this_export": false
 }

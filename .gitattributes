@@ -1,2 +1,3 @@
 *.onnx binary
 *.zip binary
+*.npz binary

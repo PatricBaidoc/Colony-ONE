@@ -1,0 +1,65 @@
+{
+  "records": 61,
+  "accepted_protocols": 51,
+  "excluded_missing_or_malformed": 10,
+  "deduplicated_protocols": 0,
+  "sources": [
+    {
+      "path": "/workspace/Colony-ONE/results/provided_matches.json",
+      "sha256": "7bf24b647d33d9e80b029ed4f75c7463564face0d3c3b24f8fe64f2ff27b61c3"
+    },
+    {
+      "path": "/workspace/Colony-ONE/results/new_tournament_matches.json",
+      "sha256": "59d3e3038ca6b7b9dc50b5e8f49d627aa068d753967436c488f9ff6852f99107"
+    },
+    {
+      "path": "/workspace/Colony-ONE/results/match-22872.txt",
+      "sha256": "d71c7264288746030a294e6ee1e3198b35af7640dc86f91178a05ea8cf1042cd"
+    }
+  ],
+  "training_positions": 984,
+  "winner_action_positions": 940,
+  "weak_negative_positions": 44,
+  "max_legal_actions": 39,
+  "labels": "Winner actions plus weak final losing actions followed by <=2 winning actions ending explicit Kernel capture; no score-field interpretation",
+  "seed": 22872,
+  "epochs": 30,
+  "architecture": "1024->32 ReLU->128 source/target scores",
+  "training_loss": [
+    2.849415808916092,
+    2.5683701783418655,
+    2.43714639544487,
+    2.363543674349785,
+    2.2861921191215515,
+    2.2148773446679115,
+    2.1585315465927124,
+    2.0977680012583733,
+    2.0215754359960556,
+    1.9409467354416847,
+    1.8623215109109879,
+    1.7963202521204948,
+    1.7142018899321556,
+    1.6396283060312271,
+    1.5922426879405975,
+    1.5122490525245667,
+    1.4528178051114082,
+    1.386266678571701,
+    1.3330889195203781,
+    1.279752939939499,
+    1.2112901881337166,
+    1.1607953757047653,
+    1.121714673936367,
+    1.0858532935380936,
+    1.02019202709198,
+    0.9858326315879822,
+    0.9486485719680786,
+    0.9012778773903847,
+    0.8806879408657551,
+    0.8386310860514641
+  ],
+  "elapsed_seconds": 3.04093103500054,
+  "artifact": "/workspace/Colony-ONE/learned_weights.npz",
+  "artifact_sha256": "b11efe0a34f6f42695a7f873974908bf929006f10c913cd80dc6379e793ac946",
+  "evaluation": "Not performed. Training loss is not winrate or held-out performance.",
+  "method": "Winner-action imitation plus weight-0.15 final-error anti-imitation; not deep-search teacher or AlphaZero"
+}
